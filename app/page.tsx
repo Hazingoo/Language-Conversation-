@@ -17,7 +17,7 @@ interface Character {
   id: string
   name: string
   avatar: string
-  description: string
+  situation: string // Changed from description to situation
   language: string
   personality: string
   interactions: string
@@ -43,73 +43,73 @@ const defaultCharacters: Character[] = [
     id: "1",
     name: "Marie Dubois",
     avatar: "/images/marie-dubois.png",
-    description:
-      "Bonjour! I'm Marie, a friendly Parisian café owner. Let's practice French while discussing daily life, food, and culture!",
+    situation:
+      "You are at Marie's cozy Parisian café, ordering a coffee and a croissant. It's a busy morning, and you want to practice your French.",
     language: "French",
     personality: "Friendly café owner from Paris",
     interactions: "2.3k",
     systemPrompt:
-      "You are Marie Dubois, a warm and friendly café owner from Paris. You love discussing French cuisine, daily Parisian life, and French culture. You speak primarily in French but explain things in English when needed. You're patient with learners and always encourage them. You often reference your café, regular customers, and life in Paris.",
+      "You are Marie Dubois, a warm and friendly café owner from Paris. The user is at your cozy Parisian café, ordering a coffee and a croissant on a busy morning. You love discussing French cuisine, daily Parisian life, and French culture. You speak primarily in French but explain things in English when needed. You're patient with learners and always encourage them. You often reference your café, regular customers, and life in Paris.",
   },
   {
     id: "2",
     name: "Carlos Rodriguez",
     avatar: "/images/carlos-rodriguez.png",
-    description:
-      "¡Hola! I'm Carlos from Madrid. I love football, tapas, and helping people learn Spanish through fun conversations!",
+    situation:
+      "You've just met Carlos at a local tapas bar in Madrid. He's watching a football match on TV and offers you some tapas. You want to chat about the game and Spanish culture.",
     language: "Spanish",
     personality: "Enthusiastic football fan from Madrid",
     interactions: "1.8k",
     systemPrompt:
-      "You are Carlos Rodriguez, an enthusiastic football fan from Madrid. You're passionate about Real Madrid, Spanish cuisine (especially tapas), and Spanish culture. You speak primarily in Spanish but help with English explanations. You're energetic, friendly, and love to share stories about football matches and Spanish traditions.",
+      "You are Carlos Rodriguez, an enthusiastic football fan from Madrid. The user has just met you at a local tapas bar in Madrid. You're watching a football match and offering them tapas. You're passionate about Real Madrid, Spanish cuisine (especially tapas), and Spanish culture. You speak primarily in Spanish but help with English explanations. You're energetic, friendly, and love to share stories about football matches and Spanish traditions.",
   },
   {
     id: "3",
     name: "Hiroshi Tanaka",
     avatar: "/placeholder.svg?height=80&width=80&text=HT",
-    description:
-      "こんにちは！I'm Hiroshi, a Tokyo office worker. Let's practice Japanese while learning about Japanese culture and business!",
+    situation:
+      "You are a new intern at a Japanese company in Tokyo, and Hiroshi Tanaka is your senior colleague. You're having a casual chat during a coffee break.",
     language: "Japanese",
     personality: "Polite Tokyo office worker",
     interactions: "3.1k",
     systemPrompt:
-      "You are Hiroshi Tanaka, a polite and hardworking office worker from Tokyo. You're knowledgeable about Japanese business culture, technology, and daily life in Tokyo. You speak primarily in Japanese with appropriate levels of politeness (keigo). You're patient and methodical in your teaching approach, often providing cultural context.",
+      "You are Hiroshi Tanaka, a polite and hardworking office worker from Tokyo. The user is a new intern at your company, and you're having a casual chat during a coffee break. You're knowledgeable about Japanese business culture, technology, and daily life in Tokyo. You speak primarily in Japanese with appropriate levels of politeness (keigo). You're patient and methodical in your teaching approach, often providing cultural context.",
   },
   {
     id: "4",
     name: "Emma Thompson",
     avatar: "/placeholder.svg?height=80&width=80&text=ET",
-    description:
-      "Hello there! I'm Emma from London. I'll help you perfect your British English with proper pronunciation and etiquette!",
+    situation:
+      "You are attending a formal English tea party in London, hosted by Emma Thompson, a refined etiquette expert. You want to practice your formal English and learn about British customs.",
     language: "English",
     personality: "Proper British teacher from London",
     interactions: "4.2k",
     systemPrompt:
-      "You are Emma Thompson, a proper and well-educated English teacher from London. You speak with refined British English and are passionate about proper grammar, pronunciation, and British etiquette. You're encouraging but also precise in your corrections. You often reference British culture, literature, and traditions.",
+      "You are Emma Thompson, a proper and well-educated English teacher from London. The user is attending your formal English tea party. You speak with refined British English and are passionate about proper grammar, pronunciation, and British etiquette. You're encouraging but also precise in your corrections. You often reference British culture, literature, and traditions.",
   },
   {
     id: "5",
     name: "Hans Mueller",
     avatar: "/placeholder.svg?height=80&width=80&text=HM",
-    description:
-      "Guten Tag! I'm Hans from Berlin. Let's learn German through discussions about technology, history, and German traditions!",
+    situation:
+      "You are at a tech conference in Berlin, and Hans Mueller, a software engineer, is giving a presentation. You approach him afterwards to ask questions and discuss German tech culture.",
     language: "German",
     personality: "Tech-savvy Berliner",
     interactions: "1.5k",
     systemPrompt:
-      "You are Hans Mueller, a tech-savvy engineer from Berlin. You're interested in technology, German history, and modern German culture. You speak primarily in German but provide clear English explanations. You're logical, methodical, and enjoy discussing both traditional and modern aspects of German life.",
+      "You are Hans Mueller, a tech-savvy engineer from Berlin. The user has approached you after your presentation at a tech conference in Berlin. You're interested in technology, German history, and modern German culture. You speak primarily in German but provide clear English explanations. You're logical, methodical, and enjoy discussing both traditional and modern aspects of German life.",
   },
   {
     id: "6",
     name: "Li Wei",
     avatar: "/placeholder.svg?height=80&width=80&text=LW",
-    description:
-      "你好！I'm Li Wei from Beijing. I'll help you learn Mandarin Chinese while sharing stories about Chinese culture and cuisine!",
+    situation:
+      "You are visiting a traditional Chinese tea house in Beijing, and Li Wei, the tea master, is guiding you through a tea ceremony. You want to learn about Chinese tea culture and practice Mandarin.",
     language: "Chinese",
     personality: "Cultural enthusiast from Beijing",
     interactions: "2.7k",
     systemPrompt:
-      "You are Li Wei, a cultural enthusiast from Beijing who loves sharing Chinese traditions, cuisine, and history. You speak primarily in Mandarin Chinese (simplified characters) and provide pinyin when helpful. You're warm, patient, and love telling stories about Chinese festivals, food, and cultural practices.",
+      "You are Li Wei, a cultural enthusiast and tea master from Beijing. The user is visiting your traditional Chinese tea house, and you are guiding them through a tea ceremony. You love sharing Chinese traditions, cuisine, and history. You speak primarily in Mandarin Chinese (simplified characters) and provide pinyin when helpful. You're warm, patient, and love telling stories about Chinese festivals, food, and cultural practices.",
   },
 ]
 
@@ -150,7 +150,7 @@ export default function LanguageLearningApp() {
   const [showCreateDialog, setShowCreateDialog] = useState(false)
   const [newCharacter, setNewCharacter] = useState({
     name: "",
-    description: "",
+    situation: "", // Changed from description to situation
     language: "",
     personality: "",
   })
@@ -179,14 +179,14 @@ export default function LanguageLearningApp() {
     // For custom characters, generate natural greeting based on language and personality
     if (character.creator === "You") {
       const languageGreetings: { [key: string]: string } = {
-        French: `Bonjour ! Je suis ${character.name}. Comment allez-vous aujourd'hui ? Qu'est-ce qui vous amène ici ?`,
-        Spanish: `¡Hola! Soy ${character.name}. ¿Cómo estás hoy? ¿De qué te gustaría hablar?`,
-        German: `Guten Tag! Ich bin ${character.name}. Wie geht es Ihnen heute? Worüber möchten Sie sprechen?`,
-        Italian: `Ciao! Sono ${character.name}. Come stai oggi? Di cosa ti piacerebbe parlare?`,
-        Japanese: `こんにちは！${character.name}です。今日はいかがですか？何について話したいですか？`,
-        Korean: `안녕하세요! 저는 ${character.name}입니다. 오늘 어떠세요? 무엇에 대해 이야기하고 싶으세요?`,
-        Chinese: `你好！我是${character.name}。你今天怎么样？你想聊什么？`,
-        English: `Hello! I'm ${character.name}. How are you today? What would you like to talk about?`,
+        French: `Bonjour ! Je suis ${character.name}. Bienvenue dans cette situation : "${character.situation}". Comment allez-vous aujourd'hui ?`,
+        Spanish: `¡Hola! Soy ${character.name}. Bienvenido a esta situación: "${character.situation}". ¿Cómo estás hoy?`,
+        German: `Guten Tag! Ich bin ${character.name}. Willkommen in dieser Situation: "${character.situation}". Wie geht es Ihnen heute?`,
+        Italian: `Ciao! Sono ${character.name}. Benvenuto in questa situazione: "${character.situation}". Come stai oggi?`,
+        Japanese: `こんにちは！${character.name}です。この状況へようこそ：「${character.situation}」。今日はいかがですか？`,
+        Korean: `안녕하세요! 저는 ${character.name}입니다. 이 상황에 오신 것을 환영합니다: "${character.situation}". 오늘 어떠세요?`,
+        Chinese: `你好！我是${character.name}。欢迎来到这个情境：“${character.situation}”。你今天怎么样？`,
+        English: `Hello! I'm ${character.name}. Welcome to this situation: "${character.situation}". How are you today?`,
       }
       return (
         languageGreetings[character.language] ||
@@ -194,19 +194,18 @@ export default function LanguageLearningApp() {
       )
     }
 
-    // For default characters, use natural greetings that reflect their personality
+    // For default characters, use natural greetings that reflect their personality and situation
     const greetings: { [key: string]: string } = {
-      "Marie Dubois":
-        "Bonjour ! Je suis Marie. Comment allez-vous aujourd'hui ? Avez-vous déjà goûté un vrai café français ? Qu'est-ce qui vous amène à Paris ?",
+      "Marie Dubois": "Bonjour ! Bienvenue à mon café. Que puis-je vous servir ce matin ? Un café, un croissant ?",
       "Carlos Rodriguez":
-        "¡Hola! Soy Carlos. ¿Cómo estás? ¿Has visto el último partido del Real Madrid? ¿Te gustan las tapas?",
+        "¡Hola! Qué bueno verte por aquí. ¿Quieres un poco de tortilla? El partido está emocionante, ¿verdad?",
       "Hiroshi Tanaka":
-        "こんにちは！田中と申します。お疲れさまです。今日はお仕事はいかがでしたか？日本の文化について何か知りたいことはありますか？",
+        "こんにちは！田中と申します。お疲れさまです。新しいインターンの方ですね。何か困ったことはありませんか？",
       "Emma Thompson":
-        "Hello there! I'm Emma. How lovely to meet you! Have you been to London before? What brings you to learn English today?",
+        "Good afternoon! Welcome to my tea party. Do make yourself comfortable. Have you had a chance to try the Earl Grey?",
       "Hans Mueller":
-        "Guten Tag! Ich bin Hans. Wie geht es Ihnen? Arbeiten Sie auch in der Technologie? Was interessiert Sie an Deutschland?",
-      "Li Wei": "你好！我是李伟。很高兴认识你！你对中国文化了解吗？你最喜欢什么中国菜？",
+        "Guten Tag! Schön, dass Sie nach meiner Präsentation vorbeischauen. Haben Sie Fragen zur Softwareentwicklung in Deutschland?",
+      "Li Wei": "你好！欢迎来到我的茶馆。请坐。今天想品尝哪种茶呢？",
     }
     return greetings[character.name] || `Hello! I'm ${character.name}. Let's practice ${character.language} together!`
   }
@@ -254,11 +253,11 @@ export default function LanguageLearningApp() {
     (character) =>
       character.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       character.language.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      character.description.toLowerCase().includes(searchQuery.toLowerCase()),
+      character.situation.toLowerCase().includes(searchQuery.toLowerCase()), // Changed to situation
   )
 
   const handleCreateCharacter = () => {
-    if (newCharacter.name && newCharacter.description && newCharacter.language && newCharacter.personality) {
+    if (newCharacter.name && newCharacter.situation && newCharacter.language && newCharacter.personality) {
       const languageInstructions: { [key: string]: string } = {
         French: "You respond primarily in French with English explanations when needed for corrections.",
         Spanish: "You respond primarily in Spanish with English explanations when needed for corrections.",
@@ -277,25 +276,25 @@ export default function LanguageLearningApp() {
         id: Date.now().toString(),
         name: newCharacter.name,
         avatar: `/placeholder.svg?height=80&width=80&text=${newCharacter.name.charAt(0)}`,
-        description: newCharacter.description,
+        situation: newCharacter.situation, // Changed from description to situation
         language: newCharacter.language,
         personality: newCharacter.personality,
         interactions: "0",
         creator: "You",
-        systemPrompt: `You are ${newCharacter.name}. You are ${newCharacter.personality}. ${languageInstructions[newCharacter.language] || `You help people learn ${newCharacter.language}.`} 
+        systemPrompt: `You are ${newCharacter.name}. You are ${newCharacter.personality}. The user is in the following situation: "${newCharacter.situation}". ${languageInstructions[newCharacter.language] || `You help people learn ${newCharacter.language}.`} 
 
-IMPORTANT: Never explicitly state your role, personality, or description. Instead, naturally embody these characteristics through your behavior, questions, and conversation style. Ask questions and engage in topics that reflect your background and interests. Be encouraging, patient, and always stay in character while helping with language learning.
+IMPORTANT: Never explicitly state your role, personality, or the situation. Instead, naturally embody these characteristics and the situation through your behavior, questions, and conversation style. Ask questions and engage in topics that reflect your background, interests, and the current situation. Be encouraging, patient, and always stay in character while helping with language learning.
 
 For example:
-- If you're a chef, ask about favorite foods and cooking
-- If you're a teacher, naturally guide the conversation educationally  
-- If you're from a specific city, mention local places and culture naturally
-- If you have hobbies, bring them up in conversation organically
+- If the situation is a café, ask about their order or the weather outside.
+- If you're a chef, ask about favorite foods and cooking.
+- If you're from a specific city, mention local places and culture naturally.
+- If you have hobbies, bring them up in conversation organically.
 
-Your personality should come through in HOW you speak and WHAT you choose to discuss, not by telling the user what you are.`,
+Your personality and the situation should come through in HOW you speak and WHAT you choose to discuss, not by telling the user what you are or what the situation is.`,
       }
       setCharacters([character, ...characters])
-      setNewCharacter({ name: "", description: "", language: "", personality: "" })
+      setNewCharacter({ name: "", situation: "", language: "", personality: "" }) // Changed to situation
       setShowCreateDialog(false)
     }
   }
@@ -456,6 +455,12 @@ Your personality should come through in HOW you speak and WHAT you choose to dis
             <div className="lg:col-span-2">
               <Card className="h-[600px] flex flex-col bg-gray-800 border-gray-700">
                 <CardContent className="flex-1 p-4 overflow-y-auto space-y-4">
+                  {/* Situation Display */}
+                  <div className="bg-gray-700 rounded-lg p-4 mb-4 text-center">
+                    <h4 className="text-lg font-semibold text-white mb-2">Current Situation:</h4>
+                    <p className="text-gray-300 italic">"{selectedCharacter.situation}"</p>
+                  </div>
+
                   {messages.map((message) => {
                     if (message.role === "user") {
                       return (
@@ -623,7 +628,7 @@ Your personality should come through in HOW you speak and WHAT you choose to dis
                     <h3 className="font-semibold text-white">{selectedCharacter.name}</h3>
                     <Badge className="mt-1 bg-blue-600 text-white">{selectedCharacter.language}</Badge>
                   </div>
-                  <p className="text-sm text-gray-300 mb-3">{selectedCharacter.description}</p>
+                  <p className="text-sm text-gray-300 mb-3">{selectedCharacter.situation}</p> {/* Display situation */}
                   <div className="flex items-center justify-center gap-1 text-xs text-gray-400">
                     <MessageCircle className="w-3 h-3" />
                     {selectedCharacter.interactions} conversations
@@ -711,12 +716,12 @@ Your personality should come through in HOW you speak and WHAT you choose to dis
                   />
                 </div>
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="situation">Situation Description</Label> {/* Changed label */}
                   <Textarea
-                    id="description"
-                    value={newCharacter.description}
-                    onChange={(e) => setNewCharacter({ ...newCharacter, description: e.target.value })}
-                    placeholder="Describe your character's personality, background, and how they'll help with language learning..."
+                    id="situation" // Changed ID
+                    value={newCharacter.situation}
+                    onChange={(e) => setNewCharacter({ ...newCharacter, situation: e.target.value })} // Changed to situation
+                    placeholder="Describe the scenario the user is in when chatting with this character (e.g., 'You are at a bustling market in Mexico City, trying to buy fresh produce.')"
                     className="bg-gray-700 border-gray-600"
                     rows={3}
                   />
@@ -810,7 +815,8 @@ Your personality should come through in HOW you speak and WHAT you choose to dis
                           {character.language}
                         </Badge>
                       </div>
-                      <p className="text-gray-300 text-sm mb-4 line-clamp-3">{character.description}</p>
+                      <p className="text-gray-300 text-sm mb-4 line-clamp-3">{character.situation}</p>{" "}
+                      {/* Display situation */}
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-400">{character.creator && `By ${character.creator}`}</span>
                         <Button
@@ -853,7 +859,8 @@ Your personality should come through in HOW you speak and WHAT you choose to dis
                           </Badge>
                         </div>
                         {character.creator && <p className="text-xs text-gray-400 mb-2">By {character.creator}</p>}
-                        <p className="text-sm text-gray-300 line-clamp-2 mb-3">{character.description}</p>
+                        <p className="text-sm text-gray-300 line-clamp-2 mb-3">{character.situation}</p>{" "}
+                        {/* Display situation */}
                         <div className="flex items-center gap-1 text-xs text-gray-400">
                           <MessageCircle className="w-3 h-3" />
                           {character.interactions}
