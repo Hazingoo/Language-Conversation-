@@ -430,7 +430,7 @@ Your personality and the situation should come through in HOW you speak and WHAT
               variant="ghost"
               size="sm"
               onClick={() => setSelectedCharacter(null)}
-              className="text-gray-400 hover:text-white"
+              className="text-gray-400 hover:text-gray-200"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
               Back to Characters
@@ -822,7 +822,7 @@ Your personality and the situation should come through in HOW you speak and WHAT
                         <Button
                           size="sm"
                           variant="outline"
-                          className="border-gray-600 text-gray-300 hover:text-white bg-transparent"
+                          className="border-gray-600 text-gray-300 hover:text-gray-200 bg-transparent"
                         >
                           Chat
                         </Button>
