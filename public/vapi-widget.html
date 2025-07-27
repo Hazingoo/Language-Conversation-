@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vapi Widget Demo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: #f7fafc;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .content {
+            max-width: 720px;
+            margin: auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>🎙️ Talk to CharaLang</h1>
+        <p>
+            <b>Vapi AI</b>Demo page where you can start a voice conversation with just one click.<br>
+            Press the lower right microphone button!
+        </p>
+    </div>
+
+    <script>
+        var vapiInstance = null;
+
+        const assistant = "9226339a-8e31-44a7-a53d-a82c5cdc12fc";
+        const apiKey = "34d415aa-e3e3-4f23-aaa4-45c0ab668188";
+
+        const buttonConfig = {
+            buttonPosition: "bottom-right", // default
+            buttonSize: 60,             // px
+            buttonColor: "#12A594",
+            waveformColor: "#FF4444",
+            tooltip: "Speak with Hikari!",
+        };
+
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+            g.defer = true; g.async = true;
+            s.parentNode.insertBefore(g, s);
+
+            g.onload = function () {
+                vapiInstance = window.vapiSDK.run({
+                    apiKey: apiKey,      /* mandatory */
+                    assistant: assistant,   /* mandatory */
+                    config: buttonConfig /* optional */
+                });
+            };
+        })(document, "script");
+    </script>
+    <!-- ▲▲-------------------------------------------------- -->
+</body>
+
+</html>

@@ -2,12 +2,25 @@ import { openai } from "@ai-sdk/openai"
 import { streamText } from "ai"
 
 export async function POST(req: Request) {
-  const { messages, targetLanguage = "French", nativeLanguage = "English", characterPrompt = "" } = await req.json()
+    const { messages, targetLanguage = "French", nativeLanguage = "English", characterPrompt = "", curriculumContext = null, stream = true } = await req.json()
 
-  const getSystemPrompt = (targetLang: string, nativeLang: string, characterPrompt: string) => {
-    const basePrompt = characterPrompt || `You are a friendly ${targetLang} language learning assistant.`
+    const getSystemPrompt = (targetLang: string, nativeLang: string, characterPrompt: string, curriculum: any = null) => {
+        const basePrompt = characterPrompt || `You are a friendly ${targetLang} language learning assistant.`
 
-    return `${basePrompt}
+        const curriculumGuidance = curriculum ? `
+
+CURRICULUM GUIDANCE:
+Scenario: ${curriculum.scenario_scene}
+
+Key Questions to Guide Conversation:
+${curriculum.curriculum_questions?.map((q: any, i: number) => `${i + 1}. ${q.question} (Expected: ${q.expected_response})`).join('\n') || ''}
+
+Common Corrections to Watch For:
+${curriculum.correction_examples?.map((c: any) => `- "${c.incorrect_phrase}" → "${c.correct_phrase}" (${c.explanation})`).join('\n') || ''}
+
+Use these curriculum points to naturally guide the conversation and provide targeted learning opportunities.` : ''
+
+        return `${basePrompt}${curriculumGuidance}
 
 Key behaviors:
 1. Always respond primarily in ${targetLang}, but use ${nativeLang} explanations when needed
@@ -31,13 +44,25 @@ Example alternative format:
 [ALTERNATIVE]Je mange du pain|Je prends du pain|In English: You could also say "je prends du pain" (I'm having bread) which is more common at meals.[/ALTERNATIVE]
 
 Remember: Be patient, encouraging, and focus on communication over perfection. Always provide either helpful corrections OR alternative expressions while staying true to your character.`
-  }
+    }
 
-  const result = await streamText({
-    model: openai("gpt-4o"),
-    system: getSystemPrompt(targetLanguage, nativeLanguage, characterPrompt),
-    messages,
-  })
+    if (stream) {
+        const result = await streamText({
+            model: openai("gpt-4o"),
+            system: getSystemPrompt(targetLanguage, nativeLanguage, characterPrompt, curriculumContext),
+            messages,
+        })
 
-  return result.toDataStreamResponse()
+        return result.toDataStreamResponse()
+    } else {
+        // Non-streaming response for feedback
+        const result = await streamText({
+            model: openai("gpt-4o"),
+            system: getSystemPrompt(targetLanguage, nativeLanguage, characterPrompt, curriculumContext),
+            messages,
+        })
+
+        const text = await result.text
+        return Response.json({ content: text })
+    }
 }
